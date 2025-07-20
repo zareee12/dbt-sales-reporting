@@ -1,5 +1,15 @@
 # 📊 Penjualan Data Model & Dashboard Documentation
 
+## 📝 Project Description
+
+Proyek ini membangun pipeline pelaporan penjualan end-to-end menggunakan **DBT (Data Build Tool)** untuk pemodelan data dan **Apache Superset / Preset.io** untuk visualisasi dashboard interaktif.
+
+Tujuan dari proyek ini adalah mengubah data penjualan mentah menjadi model data yang bersih dan terstruktur (star schema), serta menyediakan dashboard yang dapat membantu bisnis dalam:
+
+- Memantau performa penjualan
+- Mengidentifikasi pelanggan, produk, sales, dan kota terbaik
+- Menganalisis tren penjualan dan distribusi pajak
+
 ## 1. 🧱 Overall Data Model
 
 Model ini dibangun berdasarkan pendekatan **star schema**, dengan satu tabel fakta utama (`fakta_penjualan`) yang terhubung ke beberapa tabel dimensi. Semua model ini didefinisikan dan divalidasi menggunakan **DBT (Data Build Tool)**.
