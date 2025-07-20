@@ -91,4 +91,8 @@ Dashboard ini dibangun dengan **Apache Superset / Preset.io** dan ditujukan untu
 - Visualisasi geo berdasarkan `kode_kota`
 
 ---
+## 🖼️ Dashboard Preview
+
+![Dashboard Screenshot](https://raw.githubusercontent.com/zareee12/dbt-sales-reporting/main/image/screenshot.png)
+
 
