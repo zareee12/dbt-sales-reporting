@@ -1,0 +1,156 @@
+select * from public.raw_sales;
+
+--cleaning no urut
+UPDATE public.raw_sales
+SET "No. Urut" = REGEXP_REPLACE("No. Urut", '\.$', '')
+WHERE "No. Urut" ~ '\.$';
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "No. Urut" TYPE INTEGER
+USING "No. Urut"::INTEGER;
+
+--cleaning ref
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Ref" TYPE VARCHAR(5);
+
+--clening date
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Tgl Ref" TYPE DATE
+USING TO_DATE("Tgl Ref", 'DD/MM/YYYY');
+
+--clean kode id
+ALTER TABLE public.raw_sales
+ALTER COLUMN "No. Ref" TYPE VARCHAR(20),
+ALTER COLUMN "No. Dok Ref" TYPE VARCHAR(20),
+ALTER COLUMN "Kode Cust" TYPE VARCHAR(30),
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Nama Cust" TYPE VARCHAR(30),
+ALTER COLUMN "Alamat Cust" TYPE TEXT;
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Kode Sales" TYPE VARCHAR(5),
+ALTER COLUMN "Nama Sales" TYPE VARCHAR(15);
+--
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Pajak" TYPE VARCHAR(10),
+ALTER COLUMN "Kategori Pjk" TYPE VARCHAR(10),
+ALTER COLUMN "Kode Barang" TYPE VARCHAR(30);
+
+---
+UPDATE public.raw_sales
+SET "Qty Std" = REGEXP_REPLACE("Qty Std", '\.(?=.*\.)', '', 'g')
+WHERE "Qty Std" ~ '\d+\.\d+\.\d+';
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Ket Ref" TYPE VARCHAR(5),
+ALTER COLUMN "Sat" TYPE VARCHAR(10),
+ALTER COLUMN "Sat Std" TYPE VARCHAR(10);
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Qty" TYPE FLOAT USING REPLACE("Qty", ',', '.')::FLOAT,
+ALTER COLUMN "Qty Std" TYPE FLOAT USING REPLACE("Qty Std", ',', '.')::FLOAT;
+
+--update tipe
+UPDATE public.raw_sales
+SET
+  "Harga (+)" = REGEXP_REPLACE(REPLACE("Harga (+)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Harga Sbl (+)" = REGEXP_REPLACE(REPLACE("Harga Sbl (+)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Harga Unit(Mu)" = REGEXP_REPLACE(REPLACE("Harga Unit(Mu)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Total(MU)" = REGEXP_REPLACE(REPLACE("Total(MU)", ',', '.'), '\.(?=.*\.)', '', 'g');
+
+
+UPDATE public.raw_sales
+SET
+  "Harga (+)" = "Harga (+)"::FLOAT,
+  "Harga Sbl (+)" = "Harga Sbl (+)"::FLOAT,
+  "Harga Unit(Mu)" = "Harga Unit(Mu)"::FLOAT,
+  "Total(MU)" = "Total(MU)"::FLOAT;
+
+
+
+ALTER TABLE public.raw_sales
+ALTER COLUMN "Harga (+)" TYPE FLOAT USING "Harga (+)"::FLOAT,
+ALTER COLUMN "Harga Sbl (+)" TYPE FLOAT USING "Harga Sbl (+)"::FLOAT,
+ALTER COLUMN "Harga Unit(Mu)" TYPE FLOAT USING "Harga Unit(Mu)"::FLOAT,
+ALTER COLUMN "Total(MU)" TYPE FLOAT USING "Total(MU)"::FLOAT;
+
+-- clean disc
+UPDATE public.raw_sales
+SET
+  "Disc. 1 (%)"    = REGEXP_REPLACE(REPLACE("Disc. 1 (%)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 1 (MU)"   = REGEXP_REPLACE(REPLACE("Disc. 1 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 2 (%)"    = REGEXP_REPLACE(REPLACE("Disc. 2 (%)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 2 (MU)"   = REGEXP_REPLACE(REPLACE("Disc. 2 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g');
+
+  ALTER TABLE public.raw_sales
+  ALTER COLUMN "Disc. 1 (%)"  TYPE FLOAT USING "Disc. 1 (%)"::FLOAT,
+  ALTER COLUMN "Disc. 1 (MU)" TYPE FLOAT USING "Disc. 1 (MU)"::FLOAT,
+  ALTER COLUMN "Disc. 2 (%)"  TYPE FLOAT USING "Disc. 2 (%)"::FLOAT,
+  ALTER COLUMN "Disc. 2 (MU)" TYPE FLOAT USING "Disc. 2 (MU)"::FLOAT;
+
+  UPDATE public.raw_sales
+SET
+  "Disc. 3 (%)"  = REGEXP_REPLACE(REPLACE("Disc. 3 (%)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 3 (MU)" = REGEXP_REPLACE(REPLACE("Disc. 3 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 4 (MU)" = REGEXP_REPLACE(REPLACE("Disc. 4 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 5 (%)"  = REGEXP_REPLACE(REPLACE("Disc. 5 (%)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 5 (MU)" = REGEXP_REPLACE(REPLACE("Disc. 5 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g'),
+  "Disc. 6 (MU)" = REGEXP_REPLACE(REPLACE("Disc. 6 (MU)", ',', '.'), '\.(?=.*\.)', '', 'g');
+
+  ALTER TABLE public.raw_sales
+  ALTER COLUMN "Disc. 3 (%)"  TYPE FLOAT USING "Disc. 3 (%)"::FLOAT,
+  ALTER COLUMN "Disc. 3 (MU)" TYPE FLOAT USING "Disc. 3 (MU)"::FLOAT,
+  ALTER COLUMN "Disc. 4 (MU)" TYPE FLOAT USING "Disc. 4 (MU)"::FLOAT,
+  ALTER COLUMN "Disc. 5 (%)"  TYPE FLOAT USING "Disc. 5 (%)"::FLOAT,
+  ALTER COLUMN "Disc. 5 (MU)" TYPE FLOAT USING "Disc. 5 (MU)"::FLOAT,
+  ALTER COLUMN "Disc. 6 (MU)" TYPE FLOAT USING "Disc. 6 (MU)"::FLOAT;
+
+  UPDATE public.raw_sales
+SET
+  "Subtot Disc(Mu)" = REGEXP_REPLACE(REPLACE("Subtot Disc(Mu)", ',', ''), '\s', '', 'g'),
+  "Subtot(Mu)"      = REGEXP_REPLACE(REPLACE("Subtot(Mu)", ',', ''), '\s', '', 'g');
+
+  ALTER TABLE public.raw_sales
+  ALTER COLUMN "Subtot Disc(Mu)" TYPE FLOAT USING "Subtot Disc(Mu)"::FLOAT,
+  ALTER COLUMN "Subtot(Mu)" TYPE FLOAT USING "Subtot(Mu)"::FLOAT;
+
+UPDATE raw_sales
+SET "Pjk(Mu)" = '966.22'
+WHERE "Pjk(Mu)" = '966.22.00';
+
+-- Format general untuk membersihkan semua kolom yang angkanya seperti "92,162.16"
+UPDATE raw_sales
+SET
+  "Hrg Unit Riil(Mu)" = REPLACE("Hrg Unit Riil(Mu)", ',', '')::FLOAT,
+  "Total Riil(Mu)" = REPLACE("Total Riil(Mu)", ',', '')::FLOAT,
+  "Subtot Disc Riil(Mu)" = REPLACE("Subtot Disc Riil(Mu)", ',', '')::FLOAT,
+  "Subtot Riil(Mu)" = REPLACE("Subtot Riil(Mu)", ',', '')::FLOAT,
+  "Disc Akh(Mu)" = REPLACE("Disc Akh(Mu)", ',', '')::FLOAT,
+  "Subtot Net(Mu)" = REPLACE("Subtot Net(Mu)", ',', '')::FLOAT,
+  "Pjk(Mu)" = REPLACE("Pjk(Mu)", ',', '')::FLOAT,
+  "Subtot Net Pjk(Mu)" = REPLACE("Subtot Net Pjk(Mu)", ',', '')::FLOAT;
+
+ALTER TABLE raw_sales
+ALTER COLUMN "Kode Kota" TYPE VARCHAR(15),
+ALTER COLUMN "Nama Kota" TYPE VARCHAR(15);
+
+Select * from raw_sales
+limit 50
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

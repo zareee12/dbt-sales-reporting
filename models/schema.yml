@@ -1,0 +1,134 @@
+# models/schema.yml
+version: 2
+
+sources:
+  - name: public
+    database: postgres
+    schema: public
+    tables:
+      - name: raw_sales
+        description: "Data penjualan mentah yang diimpor dari CSV."
+        columns:
+          - name: No. Urut
+            description: "Pengidentifikasi unik untuk setiap catatan penjualan."
+            tests:
+              - unique
+              - not_null
+
+models:
+  - name: stg_penjualan
+    description: "Model staging untuk data penjualan mentah, dibersihkan dan diganti namanya."
+    columns:
+      - name: id_penjualan
+        description: "Pengidentifikasi unik untuk setiap catatan penjualan (dari No. Urut)."
+        tests:
+          - unique
+          - not_null
+      - name: tanggal_referensi
+        description: "Tanggal transaksi."
+      - name: kode_pelanggan
+        description: "Kode yang mengidentifikasi pelanggan."
+      - name: kode_barang
+        description: "Kode yang mengidentifikasi barang."
+      - name: kode_sales
+        description: "Kode yang mengidentifikasi sales."
+      - name: kode_kota
+        description: "Kode yang mengidentifikasi kota transaksi."
+      - name: jumlah
+        description: "Jumlah barang yang terjual."
+      - name: total_mu
+        description: "Jumlah total dalam MU (Unit Moneter) sebelum diskon dan pajak."
+      - name: pajak_mu
+        description: "Jumlah pajak dalam MU."
+
+  - name: dim_pelanggan
+    description: "Tabel dimensi untuk informasi pelanggan."
+    columns:
+      - name: kode_pelanggan
+        description: "Kode unik untuk pelanggan."
+        tests:
+          - unique
+          - not_null
+      - name: nama_pelanggan
+        description: "Nama pelanggan."
+
+  - name: dim_produk
+    description: "Tabel dimensi untuk informasi produk."
+    columns:
+      - name: kode_barang
+        description: "Kode unik untuk barang."
+        tests:
+          - unique
+          - not_null
+      - name: nama_jenis_barang
+        description: "Nama jenis barang."
+
+  - name: dim_sales
+    description: "Tabel dimensi untuk informasi sales."
+    columns:
+      - name: kode_sales
+        description: "Kode unik untuk sales."
+        tests:
+          - unique
+          - not_null
+      - name: nama_sales
+        description: "Nama sales."
+
+  - name: dim_tanggal
+    description: "Tabel dimensi untuk tanggal, berasal dari tanggal transaksi."
+    columns:
+      - name: kunci_tanggal
+        description: "Kunci tanggal unik (YYYY-MM-DD)."
+        tests:
+          - unique
+          - not_null
+      - name: tahun
+        description: "Tahun transaksi."
+      - name: bulan
+        description: "Bulan transaksi."
+
+  - name: dim_lokasi
+    description: "Tabel dimensi untuk informasi lokasi."
+    columns:
+      - name: kode_kota
+        description: "Kode unik untuk kota."
+        tests:
+          - unique
+          - not_null
+      - name: nama_kota
+        description: "Nama kota."
+
+  - name: fakta_penjualan
+    description: "Tabel fakta yang berisi detail transaksi penjualan dan ukuran."
+    columns:
+      - name: id_penjualan
+        description: "Pengidentifikasi unik untuk setiap catatan penjualan."
+        tests:
+          - unique
+          - not_null
+      - name: kunci_tanggal
+        description: "Kunci asing ke dim_tanggal."
+        tests:
+          - not_null
+      - name: kode_pelanggan
+        description: "Kunci asing ke dim_pelanggan."
+        tests:
+          - not_null
+      - name: kode_sales
+        description: "Kunci asing ke dim_sales."
+        tests:
+          - not_null
+      - name: kode_barang
+        description: "Kunci asing ke dim_produk."
+        tests:
+          - not_null
+      - name: kode_kota
+        description: "Kunci asing ke dim_lokasi."
+        tests:
+          - not_null
+      - name: jumlah
+        description: "Jumlah barang yang terjual."
+      - name: total_mu
+        description: "Unit moneter total untuk item baris transaksi."
+      - name: pajak_mu
+        description: "Jumlah pajak untuk item baris transaksi."

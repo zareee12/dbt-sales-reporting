@@ -1,0 +1,114 @@
+slice_name: interaktif tabel
+description: null
+certified_by: null
+certification_details: null
+viz_type: ag-grid-table
+params:
+  datasource: 23__table
+  viz_type: ag-grid-table
+  query_mode: aggregate
+  groupby:
+  - kode_kota
+  - kode_barang
+  - jumlah
+  - kode_sales
+  - label: kunci_tanggal
+    sqlExpression: kunci_tanggal
+    expressionType: SQL
+  - kode_pelanggan
+  time_grain_sqla: P1D
+  temporal_columns_lookup:
+    kunci_tanggal: true
+  metrics:
+  - expressionType: SIMPLE
+    column:
+      advanced_data_type: null
+      certification_details: null
+      certified_by: null
+      column_name: total_mu
+      description: null
+      expression: null
+      filterable: true
+      groupby: true
+      id: 47
+      is_certified: false
+      is_dttm: false
+      python_date_format: null
+      type: DOUBLE PRECISION
+      type_generic: 0
+      uuid: 9adaf6d0-5a84-41db-8ee2-32567499144d
+      verbose_name: null
+      warning_markdown: null
+    aggregate: SUM
+    sqlExpression: null
+    datasourceWarning: false
+    hasCustomLabel: false
+    label: SUM(total_mu)
+    optionName: metric_pgxzjfjx0bs_tqo4j5gqpdl
+  all_columns: []
+  percent_metrics: []
+  adhoc_filters:
+  - clause: WHERE
+    subject: kunci_tanggal
+    operator: TEMPORAL_RANGE
+    comparator: No filter
+    expressionType: SIMPLE
+  order_by_cols: []
+  row_limit: 1000
+  order_desc: true
+  table_timestamp_format: smart_date
+  include_search: true
+  allow_render_html: true
+  show_cell_bars: true
+  align_pn: false
+  color_pn: true
+  comparison_color_scheme: Green
+  conditional_formatting: []
+  table_state:
+    columnOrder:
+      orderedColIds:
+      - kunci_tanggal
+      - kode_pelanggan
+      - kode_kota
+      - kode_barang
+      - jumlah
+      - kode_sales
+      - SUM(total_mu)
+    sort:
+      sortModel:
+      - colId: SUM(total_mu)
+        sort: desc
+    pagination:
+      page: 0
+      pageSize: 100
+    aggregation:
+      aggregationModel:
+      - colId: kunci_tanggal
+        aggFunc: none
+      - colId: kode_pelanggan
+        aggFunc: none
+      - colId: kode_kota
+        aggFunc: none
+      - colId: kode_barang
+        aggFunc: none
+      - colId: jumlah
+        aggFunc: sum
+      - colId: kode_sales
+        aggFunc: none
+      - colId: SUM(total_mu)
+        aggFunc: Metric total
+    partialColumnState: true
+  comparison_type: values
+  extra_form_data: {}
+  dashboards: []
+query_context: '{"datasource":{"id":23,"type":"table"},"force":false,"queries":[{"filters":[{"col":"kunci_tanggal","op":"TEMPORAL_RANGE","val":"No
+  filter"}],"extras":{"time_grain_sqla":"P1D","having":"","where":""},"applied_time_extras":{},"columns":["kode_kota","kode_barang","jumlah","kode_sales",{"label":"kunci_tanggal","sqlExpression":"kunci_tanggal","expressionType":"SQL"},"kode_pelanggan"],"metrics":[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"total_mu","description":null,"expression":null,"filterable":true,"groupby":true,"id":47,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE
+  PRECISION","type_generic":0,"uuid":"9adaf6d0-5a84-41db-8ee2-32567499144d","verbose_name":null,"warning_markdown":null},"aggregate":"SUM","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"SUM(total_mu)","optionName":"metric_pgxzjfjx0bs_tqo4j5gqpdl"}],"orderby":[[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"total_mu","description":null,"expression":null,"filterable":true,"groupby":true,"id":47,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE
+  PRECISION","type_generic":0,"uuid":"9adaf6d0-5a84-41db-8ee2-32567499144d","verbose_name":null,"warning_markdown":null},"aggregate":"SUM","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"SUM(total_mu)","optionName":"metric_pgxzjfjx0bs_tqo4j5gqpdl"},false]],"annotation_layers":[],"row_limit":1000,"series_limit":0,"order_desc":true,"url_params":{},"custom_params":{},"custom_form_data":{},"post_processing":[],"time_offsets":[]}],"form_data":{"datasource":"23__table","viz_type":"ag-grid-table","query_mode":"aggregate","groupby":["kode_kota","kode_barang","jumlah","kode_sales",{"label":"kunci_tanggal","sqlExpression":"kunci_tanggal","expressionType":"SQL"},"kode_pelanggan"],"time_grain_sqla":"P1D","temporal_columns_lookup":{"kunci_tanggal":true},"metrics":[{"expressionType":"SIMPLE","column":{"advanced_data_type":null,"certification_details":null,"certified_by":null,"column_name":"total_mu","description":null,"expression":null,"filterable":true,"groupby":true,"id":47,"is_certified":false,"is_dttm":false,"python_date_format":null,"type":"DOUBLE
+  PRECISION","type_generic":0,"uuid":"9adaf6d0-5a84-41db-8ee2-32567499144d","verbose_name":null,"warning_markdown":null},"aggregate":"SUM","sqlExpression":null,"datasourceWarning":false,"hasCustomLabel":false,"label":"SUM(total_mu)","optionName":"metric_pgxzjfjx0bs_tqo4j5gqpdl"}],"all_columns":[],"percent_metrics":[],"adhoc_filters":[{"clause":"WHERE","subject":"kunci_tanggal","operator":"TEMPORAL_RANGE","comparator":"No
+  filter","expressionType":"SIMPLE"}],"order_by_cols":[],"row_limit":1000,"order_desc":true,"table_timestamp_format":"smart_date","include_search":true,"allow_render_html":true,"show_cell_bars":true,"align_pn":false,"color_pn":true,"comparison_color_scheme":"Green","conditional_formatting":[],"table_state":{"columnOrder":{"orderedColIds":["kunci_tanggal","kode_pelanggan","kode_kota","kode_barang","jumlah","kode_sales","SUM(total_mu)"]},"sort":{"sortModel":[{"colId":"SUM(total_mu)","sort":"desc"}]},"pagination":{"page":0,"pageSize":100},"aggregation":{"aggregationModel":[{"colId":"kunci_tanggal","aggFunc":"none"},{"colId":"kode_pelanggan","aggFunc":"none"},{"colId":"kode_kota","aggFunc":"none"},{"colId":"kode_barang","aggFunc":"none"},{"colId":"jumlah","aggFunc":"sum"},{"colId":"kode_sales","aggFunc":"none"},{"colId":"SUM(total_mu)","aggFunc":"Metric
+  total"}]},"partialColumnState":true},"comparison_type":"values","extra_form_data":{},"dashboards":[],"force":false,"result_format":"json","result_type":"full"},"result_format":"json","result_type":"full"}'
+cache_timeout: null
+uuid: 4bc09a14-dd5b-4097-89d2-80ac7d400333
+version: 1.0.0
+dataset_uuid: 60fe32b9-1127-47ec-942a-9b178c7fc9e1
